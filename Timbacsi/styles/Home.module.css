@@ -1,0 +1,333 @@
+.main {
+  /* background: #e9ecef;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%; */
+  @apply h-auto flex flex-col min-h-full bg-[#e9ecef];
+  /* background: #e9ecef; */
+}
+
+.homeheadercontainer {
+  /* height: 67px;
+  width: 100%;
+  padding: 0 10px;
+  background-color: white; */
+  @apply h-[67px] w-full bg-[white] px-2.5 py-0;
+}
+
+.homeheadercontainer .homeheadercontent {
+  /* width: 100%;
+  height: 67px;
+  display: flex; */
+  @apply w-full h-[67px] flex;
+}
+
+.homeheadercontainer .homeheadercontent .leftcontent {
+  /* width: 30%;
+  display: flex; */
+  @apply w-[30%] flex;
+}
+
+.homeheadercontainer .homeheadercontent .leftcontent .headerlogo {
+  /* background: url(../public/logo.png) no-repeat;
+  height: 67px;
+  width: 100%;
+  cursor: pointer;
+  margin-top: 10px; */
+  @apply h-[67px] w-full cursor-pointer mt-2.5 bg-[url('../public/logo.png')] bg-no-repeat;
+  /* background: url(../public/logo.png) no-repeat; */
+}
+
+.homeheadercontainer .homeheadercontent .leftcontent i {
+  /* font-size: 25px;
+  cursor: pointer; */
+  @apply text-[25px] cursor-pointer;
+}
+
+.homeheadercontainer .homeheadercontent .rightcontent {
+  /* width: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; */
+  @apply w-[70%] flex items-center justify-end;
+}
+
+.homeheadercontainer .homeheadercontent .rightcontent .zalo {
+  /* display: flex;
+  height: 20px;
+  min-width: 67.109px;
+  display: inline-flex;
+  align-items: center;
+  background-color: #03a5fa;
+  border-radius: 3px;
+  position: relative;
+  cursor: pointer;
+  padding: 0 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  margin-right: 30px; */
+  @apply h-5 min-w-[67.109px] inline-flex items-center bg-[#03a5fa] relative cursor-pointer no-underline whitespace-nowrap mr-[30px] px-3 py-3 rounded-[3px];
+}
+
+.homeheadercontainer .homeheadercontent .rightcontent .zalo .zaloimg {
+  /* background: url(../public/zalo.png) no-repeat;
+  height: 18px;
+  width: 20px;
+  background-size: 16px 16px; */
+  @apply h-[34px] w-10 bg-[2px_2px] bg-[url('../public/zalo.png')] bg-no-repeat;
+  /* background: url(../public/zalo.png) no-repeat; */
+}
+
+.homeheadercontainer .homeheadercontent .rightcontent .zalo .zalolable {
+  /* color: #fff;
+  line-height: 20px;
+  font-size: 12px; */
+  @apply text-white leading-5 text-xs;
+}
+
+.homeheadercontainer .homeheadercontent .rightcontent .login {
+  /* background: url(../public/login.png) no-repeat;
+  height: 50%;
+  width: 32px;
+  cursor: pointer; */
+  @apply h-3/6 w-8 cursor-pointer bg-[url('../public/login.png')] bg-no-repeat;
+  /* background: url(../public/login.png) no-repeat; */
+}
+
+/* banner */
+
+.homeheaderbanner {
+  /* background: url(../public/bgdoctor.jpg);
+  height: 200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column; */
+  @apply h-[200px] bg-no-repeat bg-cover bg-center flex flex-col bg-[url('../public/bgdoctor.jpg')];
+  /* background-image: url(../public/bgdoctor.jpg); */
+}
+
+.homeheaderbanner .contentup {
+  /* height: 50%; */
+  @apply h-3/6;
+}
+
+.homeheaderbanner .contentup .title1 {
+  /* background: url(../public/Logo_TimBS_W.png) center no-repeat;
+  height: 100%;
+  size: 80%;
+  margin-top: 20px; */
+  @apply h-full mt-5 bg-[url('../public/Logo_TimBS_W.png')] bg-center bg-no-repeat;
+  /* background: url(../public/Logo_TimBS_W.png) center no-repeat; */
+}
+
+.homeheaderbanner .contentdown {
+  /* height: 50%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center; */
+  @apply h-3/6 flex items-end justify-center;
+}
+
+.homeheaderbanner .contentdown .search {
+  /* display: flex;
+  justify-content: center;
+  width: fit-content;
+  margin: 25px auto;
+  align-items: center;
+  border-radius: 30px;
+  background: #f8f8f8;
+  flex-direction: row;
+  width: 50%; */
+  @apply flex justify-center items-center flex-row w-6/12 mx-auto my-[25px] rounded-[30px] bg-[#f8f8f8];
+}
+
+.homeheaderbanner .contentdown .search input {
+  /* height: 40px;
+  width: 92%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding-left: 10px;
+  color: black;
+  font-size: 16px; */
+  @apply h-10 w-[92%] text-[black] text-base pl-2.5 border-[none] outline-none bg-transparent;
+}
+
+.homeheaderbanner .contentdown .search .btnsearch {
+  /* border: unset;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+  color: rgb(0, 0, 0);
+  width: 8%;
+  height: 40px;
+  background-color: #e9ecef;
+  font-size: 18px;
+  outline: none;
+  cursor: pointer; */
+  @apply text-black w-[8%] h-10 bg-[#e9ecef] text-lg cursor-pointer rounded-tr-[20px] rounded-br-[20px] border-[unset] outline-none;
+}
+
+.footer_dad {
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 40px;
+}
+
+.footer {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* position: flex;
+  bottom: 0;
+  left: 0;
+  right: 0; */
+  background: white;
+  border-top: 1px solid #ccc;
+}
+
+.footer .p {
+  height: 24px;
+  color: black;
+  font-family: "TPS", sans-serif;
+  font-size: 16px;
+  text-align: center;
+}
+
+.footer .p a {
+  color: rgb(28, 28, 228) !important;
+}
+
+.main .no_result {
+  /* height: calc(100vh - 67px - 180px - 40px - 25px);
+  background: white; */
+  @apply h-[calc(100vh_-_67px_-_180px_-_40px_-_25px)] bg-[white];
+  /* background: white; */
+}
+
+.result {
+  /* min-height: calc(100vh - 67px - 180px - 40px - 46px);
+  height: auto;
+  display: flex;
+  position: center; */
+  /* justify-content: space-between;
+  align-items: center; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  /* margin-left: 10%;
+  margin-right: 10%;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px; */
+  @apply min-h-[calc(100vh_-_67px_-_180px_-_40px_-_46px)] h-auto flex justify-center gap-2.5 flex-wrap mb-5 mx-[10%];
+}
+
+.container {
+  /* height: 360px;
+  width: 380px;
+  border-radius: 5px;
+  background: white;
+  margin-top: 20px; */
+  @apply h-[360px] w-[380px] mt-5 rounded-[5px] bg-[white];
+  /* background: white; */
+}
+.container .title {
+  /* height: 50px;
+  text-align: center;
+  padding-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  background: rgb(163, 216, 236);
+  border-radius: 5px 5px 0 0;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center; */
+  @apply h-[50px] text-center text-[15px] font-semibold text-[black] flex justify-center items-center pt-2 rounded-[5px_5px_0_0] bg-[#A3D8Ec];
+  /* background: rgb(163, 216, 236); */
+}
+.container .body {
+  /* height: 200px;
+  padding-top: 8px;
+  margin-left: 10px;
+  font-size: 18px;
+  color: black;
+  background: white;
+  border-radius: 0 0 5px 5px; */
+  @apply h-[200px] text-lg text-[black] ml-2.5 pt-2 rounded-[0_0_5px_5px] bg-[white];
+}
+
+.container .body .cont {
+  /* height: auto;
+  display: flex;
+  gap: 10px; */
+  @apply h-auto flex gap-2.5;
+}
+
+.container .body .cont .icon {
+  /* height: 25px;
+  width: 25px;
+  margin-top: 6px; */
+  @apply h-[25px] w-[25px] mt-1.5;
+}
+
+.container .body .cont .name_doctor {
+  /* color: red;
+  font-size: 22px; */
+  @apply text-[red] text-[22px];
+}
+
+.container .body div {
+  /* margin-top: 5px; */
+  @apply mt-[5px];
+}
+
+.container .row {
+  /* height: 100px;
+  width: 100%;
+  display: flex; */
+  @apply h-[100px] w-full flex;
+}
+
+/* .container .row .reaction {
+  position: bottom;
+} */
+
+.container .row .content_left {
+  /* width: 50%; */
+  @apply w-6/12;
+}
+
+.container .row .content_left .reaction {
+  /* font-size: 20px;
+  margin-top: 2px;
+  margin-left: 5px;
+  display: flex;
+  gap: 10px; */
+  @apply text-xl flex gap-2.5 ml-[5px] mt-0.5;
+}
+
+.container .row .content_left .reaction .icon {
+  /* height: 30px;
+  weight: 25px; */
+  @apply h-[30px] w-[30px];
+}
+
+.container .row .content_right {
+  /* width: 50%; */
+  @apply w-6/12;
+}
+
+.container .row .content_right .btn_confirm {
+  /* margin-left: 25%;
+  padding: 6px 15px;
+  margin-top: 55px;
+  color: white;
+  background: green;
+  outline: none;
+  border: none;
+  border-radius: 3px; */
+  @apply text-[white] ml-[25%] mt-[55px] px-[15px] py-1.5 rounded-[3px] border-[none] bg-[green] outline-none;
+}

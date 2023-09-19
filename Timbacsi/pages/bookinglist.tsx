@@ -1,0 +1,307 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import Header from "@/components/Header";
+import Head from "next/head";
+import Listbooking from "@/components/Listbooking";
+import add from "../assets/icon/add.png";
+import axios from "axios";
+import Image from "next/image";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useEffect, useState } from "react";
+import {
+  API_getAllBookingbyDate,
+  API_receivePatient,
+  searchhsdv,
+} from "@/service/userService";
+import { GetServerSideProps } from "next";
+import Modal from "@/components/modal/Modal";
+
+interface codeProductProps {
+  username: string | null;
+}
+type Props = {};
+const bookinglist = ({ username }: codeProductProps) => {
+  interface PhongKham {
+    id: number;
+    fullname: string;
+    name_clinic: string;
+    phonenumber: string;
+    address: string;
+    CM_heart: number;
+    CS_heart: number;
+    TĐ_heart: number;
+    latitude: string;
+    longitude: string;
+    distance: number;
+    duration: number;
+    url_map: string;
+  }
+  const [dateselect, setDateSelect] = useState<any>();
+  const [AllListbooking, setListBooking] = useState<any>([]);
+  const [selectedInputs, setSelectedInputs] = useState<string[]>([]);
+  const [keysearch, setKeywordSearch] = useState<any>("");
+  const [filterSearch, setfilterSearch] = useState<any>();
+  const [sl, setSL] = useState<any>();
+  const [userData, setUserData] = useState<PhongKham[]>([]);
+  const [idBS, setIDBS] = useState<any>();
+
+  const [showModal, setShowModal] = useState(false);
+  const [id, setId] = useState(Number);
+  const [fullname, setFullname] = useState("");
+  const [name_clinic, setName_clinic] = useState("");
+
+  useEffect(() => {
+    const getUserdata = async () => {
+      if (username) {
+        const params = {
+          key: username,
+        };
+        // lấy thông tin phòng khám
+        const reqData = await searchhsdv(params);
+        const res: PhongKham[] = reqData.User;
+        setUserData(res);
+        setIDBS(reqData.User[0].id);
+      }
+    };
+
+    getUserdata();
+  }, []);
+
+  const handlSearchDate = async (date: Date) => {
+    setDateSelect(date);
+    //format day,month
+    let day: any = date.getDate();
+    let month: any = date.getMonth() + 1;
+    const formattedDay = String(day).padStart(2, "0");
+    const formattedMonth = String(month).padStart(2, "0");
+    const date_format =
+      date.getFullYear() + "-" + formattedMonth + "-" + formattedDay;
+    try {
+      const response = await API_getAllBookingbyDate(idBS, date_format);
+      setListBooking(response.users);
+      setSL(response.users.length);
+      // console.log("Check response: ", response);
+      if (response.errCode === 0) {
+        console.log("Get thành công.");
+      } else {
+        console.log("Lỗi bên BE errCode != 0 ", response.message);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, checked } = event.target;
+    if (checked) {
+      setSelectedInputs((prevInputs) => [...prevInputs, name]);
+    } else {
+      setSelectedInputs((prevInputs) =>
+        prevInputs.filter((input) => input !== name)
+      );
+    }
+    // console.log("check selectedInputs: ", selectedInputs); ["SA", "TR", "CH"]
+  };
+  const handleChangeSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target;
+    setKeywordSearch(value);
+    const Search = filteredList.filter(
+      (item: any) =>
+        item.hoten.toLowerCase().includes(value.toLowerCase()) ||
+        item.sdt.toLowerCase().includes(value.toLowerCase())
+    );
+    setfilterSearch(Search);
+  };
+
+  const handleOpenModal = async () => {
+    if (username) {
+      try {
+        const params = {
+          key: username,
+        };
+        const response = await searchhsdv(params);
+        const res2: PhongKham[] = response.User;
+        // console.log("check api searchdate: ", response);
+        setUserData(res2);
+
+        res2.map(
+          (res2) => (
+            setId(res2.id),
+            setFullname(res2.fullname),
+            setName_clinic(res2.name_clinic)
+          )
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    setShowModal(true);
+  };
+
+  const [TN, setTN] = useState<boolean>(false);
+  //handle filter SA TR CH
+  const filteredList =
+    selectedInputs.length === 0 && !TN
+      ? AllListbooking
+      : AllListbooking.filter((item: any) =>
+          selectedInputs.some((input) => item.buoikham.includes(input))
+        );
+  //handle filter Tiếp nhận
+  const filteredListandActive =
+    filteredList.length === 0 && TN
+      ? AllListbooking.filter((item: any) => item.active === 1)
+      : filteredList.filter((item: any) => item.active === 1);
+
+  return (
+    <div>
+      <Head>
+        <title>Danh sách đặt lịch</title>
+        <meta name="description" content="Generated by create next app" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div className="h-screen bg-gray-100">
+        <Header />
+        <div className="h-[120px] bg-no-repeat bg-cover bg-center flex items-center justify-center flex-col bg-[url('../public/bgdoctor.jpg')]">
+          {userData.map((item) => (
+            <>
+              <p
+                key={item.id}
+                className="uppercase font-bold text-2xl text-white "
+              >
+                {item.fullname}
+              </p>
+            </>
+          ))}
+          <p className="uppercase text-white text-xl font-thin">
+            danh sách đặt lịch {!sl ? "" : `(${sl})`}
+          </p>
+        </div>
+        <center className="h-auto bg-gray-100">
+          <div className="w-full flex flex-row justify-center">
+            <input
+              className="bg-gray-100 border-gray-400 w-3/4 border-b-2 py-2 mt-3 outline-none"
+              type="text"
+              placeholder="Tìm tên hoặc số điện thoại"
+              onChange={handleChangeSearch}
+            />
+            <Image
+              src={add}
+              alt="icon"
+              className="h-[25px] w-[25px] mt-6 mx-3"
+              onClick={handleOpenModal}
+            />
+          </div>
+
+          <div className="h-[90px] flex items-center justify-center">
+            <div className="h-[100%] w-[300px] flex items-center justify-center">
+              <DatePicker
+                selected={dateselect}
+                dateFormat="dd/MM/yyyy"
+                className="h-[100%] w-[100%] py-2 bg-gray-100 outline-none border-gray-500 border-b-2"
+                placeholderText="Ngày tháng năm"
+                onChange={(date: Date) => handlSearchDate(date)}
+              ></DatePicker>
+            </div>
+            <div className="h-[100%] w-[10%]">
+              <div className="h-[50%] w-full space-x-6 flex items-end justify-center">
+                <input
+                  type="checkbox"
+                  className="h-5 w-5"
+                  name="TN"
+                  onChange={() => setTN(!TN)}
+                />
+                <input
+                  type="checkbox"
+                  className="h-5 w-5"
+                  name="SA"
+                  checked={selectedInputs.includes("SA")}
+                  onChange={handleCheckboxChange}
+                />
+                <input
+                  type="checkbox"
+                  className="h-5 w-5"
+                  name="TR"
+                  checked={selectedInputs.includes("TR")}
+                  onChange={handleCheckboxChange}
+                />
+                <input
+                  type="checkbox"
+                  className="h-5 w-5"
+                  name="CH"
+                  checked={selectedInputs.includes("CH")}
+                  onChange={handleCheckboxChange}
+                />
+              </div>
+              <div className="h-[50%] w-full space-x-5 text-gray-500 text-lg">
+                <label>TN</label>
+                <label>SA</label>
+                <label>TR</label>
+                <label>CH</label>
+              </div>
+            </div>
+          </div>
+        </center>
+        <div className="h-auto bg-gray-100 pb-1">
+          {filteredList &&
+            !TN &&
+            keysearch === "" &&
+            filteredList.map((item: any, index: any) => {
+              return (
+                <div key={index}>
+                  <Listbooking
+                    data={item}
+                    refersh={() => handlSearchDate(dateselect)}
+                  />
+                </div>
+              );
+            })}
+          {filteredListandActive &&
+            TN &&
+            keysearch === "" &&
+            filteredListandActive.map((item: any, index: any) => {
+              return (
+                <div key={index}>
+                  <Listbooking
+                    data={item}
+                    refersh={() => handlSearchDate(dateselect)}
+                  />
+                </div>
+              );
+            })}
+          {filterSearch &&
+            keysearch !== "" &&
+            filterSearch.map((item: any, index: any) => {
+              return (
+                <div key={index}>
+                  <Listbooking
+                    data={item}
+                    refersh={() => handlSearchDate(dateselect)}
+                  />
+                </div>
+              );
+            })}
+        </div>
+      </div>
+      <Modal
+        iddv={id}
+        fullname={fullname}
+        name_clinic={name_clinic}
+        onClose={() => setShowModal(false)}
+        show={showModal}
+      ></Modal>
+    </div>
+  );
+};
+export const getServerSideProps: GetServerSideProps<codeProductProps> = async (
+  context
+) => {
+  const { username } = context.query;
+
+  return {
+    props: {
+      username: username as string | null,
+    },
+  };
+};
+export default bookinglist;

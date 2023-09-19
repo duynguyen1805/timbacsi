@@ -1,0 +1,7 @@
+POST https://timbacsi.vn/api_app/getpk HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAi.iJKV1QiLCJhbGci.iJIUzI1NiJ9OeyJtc2R2IjoiMjIwMjIwMTA1NDA2MzciLCJtc2RuIjoiMDkwNzY3.DIzNCIsImhvdGVuIjpudWxsLCJleHBpcmVkIjoxNjg1MTczNjIxfQONrATiZE2yQxcaP4rW8ak-WJTeN6SqVpNgptJrkXo864
+
+{
+    "key":"test"
+}
